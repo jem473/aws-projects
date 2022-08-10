@@ -6,6 +6,7 @@ resource "aws_lambda_function" "convert_to_mp3" {
   runtime = "python3.9"
   architectures = ["arm64"]
   memory_size = var.lambda_memory
+  timeout = var.lambda_timeout
 
   layers = [aws_lambda_layer_version.ffmpeg_layer.arn]
 

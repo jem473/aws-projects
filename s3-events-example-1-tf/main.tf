@@ -37,6 +37,11 @@ variable "lambda_memory" {
   default = 1024
 }
 
+variable "lambda_timeout" {
+  type = number
+  default = 120
+}
+
 variable "region" {
   type = string
   default = "us-east-1"
