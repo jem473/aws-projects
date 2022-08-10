@@ -37,6 +37,11 @@ variable "lambda_memory" {
   default = 1024
 }
 
+variable "lambda_ephemeral_storage" {
+  type = number
+  default = 512
+}
+
 variable "lambda_timeout" {
   type = number
   default = 120

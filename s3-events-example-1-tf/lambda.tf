@@ -10,6 +10,10 @@ resource "aws_lambda_function" "convert_to_mp3" {
 
   layers = [aws_lambda_layer_version.ffmpeg_layer.arn]
 
+  ephemeral_storage {
+    size = var.lambda_ephemeral_storage
+  }
+
   environment {
     variables = {
       MP3Bucket = var.destination_bucket_name
