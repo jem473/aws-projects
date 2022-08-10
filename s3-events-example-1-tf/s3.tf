@@ -2,8 +2,26 @@ resource "aws_s3_bucket" "source_bucket" {
   bucket = var.source_bucket_name
 }
 
+resource "aws_s3_bucket_public_access_block" "source_block_public_access" {
+  bucket = aws_s3_bucket.source_bucket.id
+
+  block_public_acls = true
+  block_public_policy = true
+  ignore_public_acls = true
+  restrict_public_buckets = true
+}
+
 resource "aws_s3_bucket" "destination_bucket" {
   bucket = var.destination_bucket_name
+}
+
+resource "aws_s3_bucket_public_access_block" "destination_block_public_access" {
+  bucket = aws_s3_bucket.destination_bucket.id
+
+  block_public_acls = true
+  block_public_policy = true
+  ignore_public_acls = true
+  restrict_public_buckets = true
 }
 
 resource "aws_s3_bucket_notification" "bucket_notification" {
