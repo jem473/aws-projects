@@ -24,46 +24,37 @@ resource "aws_lambda_layer_version" "ffmpeg_layer" {
 resource "aws_iam_role" "convert_to_mp3_role" {
   name = "ConvertToMP3Role"
 
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow"
-    }
-  ]
+  assume_role_policy = data.aws_iam_policy_document.lambda_assume_role_policy.json
 }
-EOF
+
+data "aws_iam_policy_document" "lambda_assume_role_policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type = "Service"
+      identifiers = ["lambda.amazonaws.com"]
+    }
+  }
 }
 
 resource "aws_iam_policy" "convert_to_mp3_role_s3_policy" {
   name = "ConvertToMP3RolePolicy"
   description = "Allows conversion Lambda to access relevant S3 Buckets."
 
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": "s3:GetObject",
-      "Resource": "${aws_s3_bucket.source_bucket.arn}/*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-          "s3:PutObject",
-          "s3:DeleteObject"
-      ],
-      "Resource": "${aws_s3_bucket.destination_bucket.arn}/*"
-    }
-  ]
+  policy = data.aws_iam_policy_document.convert_to_mp3_role_s3_policy_document.json
 }
-EOF
+
+data "aws_iam_policy_document" "convert_to_mp3_role_s3_policy_document" {
+  statement {
+    actions = ["s3:GetObject"]
+    resources = ["${aws_s3_bucket.source_bucket.arn}/*"]
+  }
+  
+  statement {
+    actions = ["s3:PutObject", "s3:DeleteObject"]
+    resources = ["${aws_s3_bucket.destination_bucket.arn}/*"]
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "convert_to_mp3_role_s3_policy_attach" {
