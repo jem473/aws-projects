@@ -27,6 +27,16 @@ variable "replication_instance_multi_az" {
   default = false
 }
 
+variable "replication_instance_apply_changed_immediately" {
+  type = bool
+  default = true
+}
+
+variable "replication_instance_auto_minor_version_upgrade" {
+  type = bool
+  default = true
+}
+
 variable "replication_instance_preferred_maintenance_window" {
   type = string
   default = "sun:09:00-sun:11:00"
@@ -48,6 +58,11 @@ variable "dms_engine_version" {
 }
 
 variable "dms_kms_key_arn" {
+  type = string
+  default = null
+}
+
+variable "replication_subnet_group_id" {
   type = string
   default = null
 }
