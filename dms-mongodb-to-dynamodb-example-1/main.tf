@@ -29,7 +29,7 @@ variable "replication_instance_multi_az" {
 
 variable "replication_instance_preferred_maintenance_window" {
   type = string
-  default = "sun:9:00-sun:11:00"
+  default = "sun:09:00-sun:11:00"
 }
 
 variable "replication_instance_class" {
