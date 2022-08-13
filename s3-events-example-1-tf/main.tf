@@ -14,11 +14,13 @@ provider "aws" {
 variable "source_bucket_name" {
   type = string
   description = "The name for the source bucket; must follow S3 bucket naming rules."
+  nullable = false
 }
 
 variable "destination_bucket_name" {
   type = string
   description = "The name for the destination bucket; must follow S3 bucket naming rules."
+  nullable = false
 }
 
 variable "filter_suffix" {
@@ -30,11 +32,13 @@ variable "filter_suffix" {
 variable "lambda_filename" {
   type = string
   description = "The filename of the Lambda .zip file."
+  nullable = false
 }
 
 variable "ffmpeg_layer_filename" {
   type = string
   description = "The filename of the Lambda layer .zip file."
+  nullable = false
 }
 
 variable "lambda_memory" {
