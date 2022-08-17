@@ -31,7 +31,6 @@ converting it using FFmpeg, and then uploading it to the MP3
 bucket.'''
 def handle_object_created(origin_bucket_name: str, object_key: str):
     origin_bucket = s3.Bucket(origin_bucket_name)
-    mp3_bucket = s3.Bucket(os.environ['MP3Bucket'])
     
     original_filename = object_key.split('/')[-1]
     original_location = f'/tmp/{original_filename}'
