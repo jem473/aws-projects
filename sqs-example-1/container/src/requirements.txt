@@ -1,0 +1,4 @@
+# Requirements for SQS testing project.
+
+# AWS (boto3)
+boto3
